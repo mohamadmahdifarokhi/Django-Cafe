@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login Page
+{% endblock %}
+
+{% block content %}
+    <section class="bg-dark mt-5">
+        <div class="container pt-5">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card bg-light text-dark" style="border-radius: 1rem;">
+                        <div class="card-body text-center">
+                            <form action="" method="post" novalidate>
+                                {% csrf_token %}
+                                <h2 class="fw-bold text-uppercase">Login</h2>
+                                    <p class="text-dark-50 mb-4">Please enter your login and password!</p>
+                                {{ form.as_p }}
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" value="login" class="btn btn-outline-dark">
+                                        Login
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+
+
+
+
+

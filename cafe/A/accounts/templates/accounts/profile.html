@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<section class="bg-dark">
+    <div class="container pb-5">
+
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="{% static 'pngfind.com-user-icon-png-2924933.png' %}"
+                             alt="avatar"
+                             class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{ current_user.first_name }} {{ current_user.last_name }}</h5>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <form class="p-5" action="" method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="btn btn-outline-dark mt-4" value="Update">
+                    </form>
+
+                </div>
+                <div class="row">
+                    <div class="text-center">
+
+                        <h3 class="text-light mb-5 border-bottom border-light border-1 w-50 mx-auto mt-5 pb-3">Your
+                            shopping
+                            carts</h3>
+                    </div>
+                    <br>
+                    {% for receipt, order in orders.items %}
+                    <div class="col-md-6">
+                        <div class="card mb-5">
+                            <div class="card-body text-dark">
+                                <div class="row d-flex">
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-dark text-start ms-2">
+                                            Code: {{ receipt.id }}
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-end me-2">
+                                            Date: {{ receipt.timestamp.date }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% for item in order %}
+                                <div class="card text-light bg-dark my-2">
+                                    <div class="row d-flex text-center">
+                                        <div class="col-4">
+                                            <p class="mb-4 mt-4"><span
+                                                    class="font-italic me-1">{{ item.menu_items.name }}</span>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <p class="mb-4 mt-4"><span
+                                                    class="font-italic me-1">{{ item.number }}</span>
+                                            </p>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <p class="mb-4 mt-4"><span
+                                                class="font-italic me-1">{{ item.menu_items.price }} T</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                <div class="row d-flex mt-3">
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-dark text-start ms-2">
+                                            Total: {{ receipt.total_price }} T
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="font-italic me-1 text-end me-2">
+                                            Final: {{ receipt.final_price }} T
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <style>
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+        }
+
+        .card-registration .select-arrow {
+            top: 13px;
+        }
+
+        .bg-grey {
+            background-color: #eae8e8;
+        }
+
+        @media (min-width: 992px) {
+            .card-registration-2 .bg-grey {
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .card-registration-2 .bg-grey {
+                border-bottom-left-radius: 16px;
+                border-bottom-right-radius: 16px;
+            }
+        }
+    </style>
+    <section class="h-100 h-custom mt-5">
+        <div class="container py-5 h-99">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                            <h6 class="mb-0 text-muted">{{ counter }} Items</h6>
+                                        </div>
+                                        <hr class="my-4">
+
+                                        {% for order in orders %}
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img
+                                                            src={{ order.menu_items.image.url }}
+                                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h6 class="text-muted">{{ order.menuitem.name }}</h6>
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                    <p class="mt-2">{{ order.number }}</p>
+
+                                                </div>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <h6 class="mb-0">{{ order.menuitem.price }} T</h6>
+                                                </div>
+
+                                            </div>
+                                            <hr class="my-4">
+                                        {% endfor %}
+
+
+                                        <div class="pt-5">
+                                            <h6 class="mb-0"><a href="{% url 'orders:menu' %}"
+                                                                class="btn btn-outline-dark">Back to menu</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-grey">
+                                    <div class="p-5">
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase">Total price</h5>
+                                            <h5>{{ total_price }} T</h5>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase">Discount</h5>
+                                            <h5 class="text-danger">{{ final_discount }} T</h5>
+                                        </div>
+                                        <hr class="my-4">
+                                        <form class="mb-3">
+                                            <div class="mb-3">
+                                                <label for="exampleInputEmail1" class="form-label">Your Table</label>
+                                                <h4>Table Number : {{ table.table_number }}</h4>
+                                            </div>
+                                            <a type="button" id="pay-button" href="{% url 'orders:request' %}"
+                                               class="btn btn-dark btn-block btn-lg"
+                                               data-mdb-ripple-color="dark">Pay
+                                            </a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
